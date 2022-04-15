@@ -6,6 +6,7 @@ import pyfiglet
 from time import sleep
 import requests
 import random
+import ast
 
 def clearScreen():
     #windows computers
@@ -78,100 +79,11 @@ def showIntro():
 inventory = ["Auryn"]
 
 #a dictionary linking a location to other locations
-#TODO:make separate file for locations
-locations = {
-    'Grassy Ocean' : {
-        'south' : 'Swamp of Sadness'
-    },
-    'Swamp of Sadness': {
-        'north' : 'Grassy Ocean',
-        'south' : 'No-Key Gate',
-        'west' : 'Sea of Possibilities',
-        'east' : 'Desert of Shattered Hopes',
-        'item' : 'artax',
-        'desc' : '''
-        You are now surrounded by a barren swampland of quicksand-like mud pools. An 
-        overwhelming sense of dread and sadness washes over you. Don't linger too long...
-        '''
-    },
-    'Sea of Possibilities' : {
-        'south' : 'Sphinx Gate',
-        'east' : "Swamp of Sadness",
-        'item' : 'mural',
-        'desc' : '''
-        Waves crash angrily on the rocky shores around you. The sky is dark and
-        your mind is weary. Many paths lie ahead...a sea of possibilities...
-        '''
-    },
-    'Desert of Shattered Hopes' : {
-        'south' : 'Mirror Gate',
-        'east' : 'Swamp of Sadness',
-        'item' : 'gmork',
-        'desc' : '''
-        The ground is harsh and littered with broken promises and tears of sorrow. Tread carefully...
-        Only scary beasts lie here...One visit is surely enough...
-        '''
-    },
-    'Sphinx Gate' : {
-        'north' : 'Sea of Possibilities',
-        'south' : 'Crystal Cave',
-        'east' : 'No-Key Gate',
-        'item' : 'cat fact',
-        'desc' : '''
-        You see a tall, ornate gate with a golden yellow sphinx staring down at you.
-        Her eyes glisten in the sun as she flicks her tail side to side...
-        '''
-    },
-    'No-Key Gate' : {
-        'north' : 'Swamp of Sadness',
-        'south' : 'Ivory Tower',
-        'east' : 'Mirror Gate',
-        'west' : 'Sphinx Gate',
-        'item' : 'clue',
-        'desc' : '''
-        You see a gate with no key? How to enter? Decide not to enter...
-                    '''
-    },
-    'Mirror Gate' : {
-        'north' : 'Desert of Shattered Hopes',
-        'south' : 'Mountains of Destiny',
-        'west' : 'No-Key Gate',
-        'item' : 'mirror',
-        'desc' : '''
-        Another gate! This one seems different though.
-        Everything appears SDRAWKCAB...
-        '''
-    },
-    'Crystal Cave' : {
-        'north' : 'Sphinx Gate',
-        'east' : 'Ivory Tower',
-        'item' : 'fortune',
-        'desc' : '''
-        Spelunking you are! The inter-play of sunlight, sea-water, and crystalline rock formations
-        leave you speachless in this magical cavern. 
-        '''
-    },
-    'Ivory Tower' : {
-        'north' : 'No-Key Gate',
-        'east' : 'Mountains of Destiny',
-        'west' : 'Crystal Cave',
-        'item' : 'geode',
-        'desc' : '''
-        You see the imperial capital of Fantastica--home of the Childlike Empress.
-        Have you completed your quest? Atreyu, she is depending on you!
-        Only you can bring her the cure before The Nothing swallows everything whole!
-        '''
-    },
-    'Mountains of Destiny' : {
-        'north' : 'Mirror Gate',
-        'west' : "Ivory Tower",
-        'item' : 'young child',
-        'desc' : '''
-        You are surrounded by towering vertical walls, sheer cliffs, and breath-taking beauty.
-        In the distance you see the Wandering mountain, the highest point in all of Fantastica.
-        '''
-    }
-}
+with open ("./locations_dict.txt", "r") as f:
+    locations = f.read() #gives us a big string
+
+locations = ast.literal_eval(locations) #convert string to dict
+
 
 #game starts at the 'Grassy Ocean'
 currentLocation = 'Grassy Ocean'
